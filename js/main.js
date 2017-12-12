@@ -2,6 +2,8 @@ console.log("testing");
 
 var game = new Phaser.Game(700, 500, Phaser.CANVAS, 'game');
 var players = this.player || this.player2;
+var playerhit = 0;
+var player2hit = 0;
 
 var PhaserGame = function () {
     this.player = null;
@@ -25,8 +27,12 @@ PhaserGame.prototype = {
         this.load.image('background', 'assets/sophia.png');
         this.load.image('platform', 'assets/cloud-platform.png');
         this.load.image('ice-platform', 'assets/ice-platform.png');
+        //CHARS
         this.load.spritesheet('dude', 'assets/nitesheet2.png', 100, 83);
         this.load.spritesheet('dude2', 'assets/nitesheetBLU.png', 100, 83);
+        //AUDIO
+        this.load.audio('music', '../assets/dark-shrine.mp3');
+        this.load.audio('smash', '../assets/churchbell.mp3');
     },
 
     create: function () {
@@ -64,6 +70,10 @@ PhaserGame.prototype = {
         downButton = game.input.keyboard.addKey(Phaser.Keyboard.S);
         leftButton = game.input.keyboard.addKey(Phaser.Keyboard.A);
         rightButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
+        //audio
+        music = game.add.audio('music');
+        music.play(); //background
+        smash = game.add.audio('smash', 0.7, false)
     },
 
     wrapPlatform: function (platform) {
@@ -84,7 +94,31 @@ PhaserGame.prototype = {
     update: function () {
         //Platform interaction
         this.platforms.forEach(this.wrapPlatform, this);
+        this.physics.arcade.collide(this.player, this.player2);
+        this.physics.arcade.collide(this.player2, this.player);
         this.physics.arcade.collide(this.player, this.platforms, this.setFriction, null, this);
+        this.physics.arcade.collide(this.player2, this.platforms, this.setFriction, null, this);
+        if (this.player.body.touching.up) {
+          playerhit++;
+          console.log(playerhit);
+          smash.play();
+          this.player.kill();
+          // this.player.revive();
+          this.player.reset(game.world.randomX, this.player.y - 300);
+          this.player.revive();
+          // $('#player2score').html('Player 2 Score: ' + playerhit);
+        }
+        if (this.player2.body.touching.up) {
+          player2hit++;
+          console.log(player2hit);
+          smash.play();
+          this.player2.kill();
+          // this.player.revive();
+          this.player2.reset(game.world.randomX, this.player.y - 300);
+          this.player2.revive();
+          // $('#playerscore').html('Player 1 Score: ' + playerhit);
+        }
+
         //  Do this AFTER the collide check, or we won't have blocked/touching set
         var standing = this.player.body.blocked.down || this.player.body.touching.down;
 
@@ -152,6 +186,7 @@ PhaserGame.prototype = {
         this.jumpTimer2 = this.time.time + 750;
     }
 }
+
 
 
 
