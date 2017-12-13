@@ -24,9 +24,11 @@ PhaserGame.prototype = {
     },
 
     preload: function () {
-        this.load.image('background', 'assets/sophia.png');
+        this.load.image('background', 'assets/Sophia.png');
+        this.load.image('main-menu', 'assets/Mountains_PS_lightened');
         this.load.image('platform', 'assets/cloud-platform.png');
         this.load.image('ice-platform', 'assets/ice-platform.png');
+        this.load.image('title', 'assets/nite-title.png');
         //CHARS
         this.load.spritesheet('dude', 'assets/nitesheet2.png', 100, 83);
         this.load.spritesheet('dude2', 'assets/nitesheetBLU.png', 100, 83);
@@ -36,7 +38,14 @@ PhaserGame.prototype = {
     },
 
     create: function () {
+        //Main Menu Call
+        // this.state.start('menu');
+
         this.add.sprite(0, 0, 'background');
+        // background.x = 0;
+        // background.y = 0;
+        // background.height = game.height;
+        // background.width = game.width;
 
         this.platforms = this.add.physicsGroup();
         this.platforms.create(0, 64, 'ice-platform');
@@ -45,16 +54,19 @@ PhaserGame.prototype = {
         this.platforms.create(600, 412, 'platform');
         this.platforms.setAll('body.allowGravity', false);
         this.platforms.setAll('body.immovable', true);
-        this.platforms.setAll('body.velocity.x', 100);
+        this.platforms.setAll('body.velocity.x', 50);
         //PLAYER
         this.player = this.add.sprite(320, 432, 'dude');
         this.physics.arcade.enable(this.player);
         this.player.body.collideWorldBounds = true;
         // this.player.body.setSize(20, 32, 5, 16);
         this.player.body.setSize(40, 64, 10, 16);
+        // this.player.body.gravity.y = 200;
+        // sprite.body.velocity.y
         this.player.animations.add('left', [0, 1, 2, 3], 10, true);
         this.player.animations.add('turn', [4], 20, true);
         this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+
         //PLAYER 2
         this.player2 = this.add.sprite(120, 432, 'dude2');
         this.physics.arcade.enable(this.player2);
@@ -85,8 +97,7 @@ PhaserGame.prototype = {
     wrapPlatform: function (platform) {
         if (platform.body.velocity.x < 0 && platform.x <= -160) {
             platform.x = 640;
-        }
-        else if (platform.body.velocity.x > 0 && platform.x >= 640) {
+        } else if (platform.body.velocity.x > 0 && platform.x >= 640) {
             platform.x = -160;
         }
     },
@@ -97,41 +108,33 @@ PhaserGame.prototype = {
         }
     },
 
-    // toggleAudio: function () {
-    //   if (music.isPlaying) {
-		//       music.pause();
-    //     } else {
-		//   music.resume();
-	  //   }
-    // },
 
     update: function () {
         // if (!music.isPlaying){
         //   music.resume();
         // }
+        //PAUSE FUNCTION
+
         //Platform interaction
         this.platforms.forEach(this.wrapPlatform, this);
         this.physics.arcade.collide(this.player, this.player2);
         this.physics.arcade.collide(this.player2, this.player);
         this.physics.arcade.collide(this.player, this.platforms, this.setFriction, null, this);
         this.physics.arcade.collide(this.player2, this.platforms, this.setFriction, null, this);
+        // this.platforms.collideDown == false;
         if (this.player.body.touching.up) {
           playerhit++;
-          console.log(playerhit);
           smash.play();
           this.player.kill();
-          // this.player.revive();
           this.player.reset(game.world.randomX, this.player.y - 300);
           this.player.revive();
           $('#player2score').text('Player 2 Score: ' + playerhit);
         }
         if (this.player2.body.touching.up) {
           player2hit++;
-          console.log(player2hit);
           smash.play();
           this.player2.kill();
-          // this.player.revive();
-          this.player2.reset(game.world.randomX, this.player.y - 300);
+          this.player2.reset(game.world.randomX, this.player2.y - 300);
           this.player2.revive();
           $('#playerscore').text('Player 1 Score: ' + playerhit);
         }
@@ -210,3 +213,30 @@ PhaserGame.prototype = {
 };
 
 game.state.add('Game', PhaserGame, true);
+
+//PAUSE function - NOT WORKING
+// $(function () {
+//   $('#pausebutton').text('Play!').data('paused', true).keyup(function (e) {
+//     if(e.keyCode == 8){
+//       $('#pausebutton').data("paused");
+//       game.paused = true;
+//     } else {
+//       $(this).data('paused');
+//       $(this).text('Pause Game with Spacebar');
+//       game.paused = false;
+//     }
+//   })
+// })
+// PAUSE FUNCTION - WORKING
+// $(function () {
+//     $("#pauseButton").text("Pause").data("paused", false).click(function () {
+//         $(this).data("paused", !$(this).data("paused"));
+//         if ($(this).data("paused")) {
+//             $(this).text("Resume");
+//             game.paused = true;
+//         } else {
+//             $(this).text("Pause");
+//             game.paused = false;
+//         }
+//     })
+// });

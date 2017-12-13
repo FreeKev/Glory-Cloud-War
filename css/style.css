@@ -1,8 +1,13 @@
 body {
   font-family: 'Press Start 2P', cursive;
+  align-items: center;
 }
 
 p {
   font: 'Press Start 2P', cursive;
   display: inline;
+}
+
+#pauseButton {
+  display: none;
 }
