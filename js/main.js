@@ -4,6 +4,23 @@ var game = new Phaser.Game(700, 500, Phaser.CANVAS, 'game');
 var players = this.player || this.player2;
 var playerhit = 0;
 var player2hit = 0;
+game.state.add('menu', menuState);
+// game.state.add('play', playState);
+// game.state.add('win', winState);
+
+WebFontConfig = {
+
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Press Start 2P']
+    }
+
+};
 
 var PhaserGame = function () {
     this.player = null;
@@ -25,7 +42,7 @@ PhaserGame.prototype = {
 
     preload: function () {
         this.load.image('background', 'assets/Sophia.png');
-        this.load.image('main-menu', 'assets/Mountains_PS_lightened');
+        // this.load.image('main-menu', 'assets/Mountains_PS_lightened');
         this.load.image('platform', 'assets/cloud-platform.png');
         this.load.image('ice-platform', 'assets/ice-platform.png');
         this.load.image('title', 'assets/nite-title.png');
@@ -35,6 +52,9 @@ PhaserGame.prototype = {
         //AUDIO
         this.load.audio('music', '../assets/dark-shrine.mp3');
         this.load.audio('smash', '../assets/churchbell.mp3');
+        //FONT
+        game.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
+        game.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
     },
 
     create: function () {
@@ -212,7 +232,8 @@ PhaserGame.prototype = {
 
 };
 
-game.state.add('Game', PhaserGame, true);
+game.state.start('menu');
+// game.state.add('Game', PhaserGame, true);
 
 //PAUSE function - NOT WORKING
 // $(function () {

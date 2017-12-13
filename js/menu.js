@@ -1,19 +1,34 @@
 console.log("in menu.js");
+
+
 var menuState = {
   create: function () {
     console.log("in the create function");
-    var nameLabel = game.add.text(80, 80, 'Glory Cloud War', {font: '50px Press Start 2P', fill: '#ffffff'});
-    var startLabel = game.add.text(80, game.world.height-80, 'Press Spacebar to Begin!', {font: '25px Press Start 2P', fill: '#ffffff'});
-    var spaceKey = game.input.keyboard.addKey(Phaser.keyboard.SPACEBAR);
+
+    // var text = game.add.text(game.world.centerX, game.world.centerY, "click and drag me", { font: "65px Arial", fill: "#ff0044", align: "center" });
+    var text = game.add.text(game.world.centerX, game.world.centerY, "- phaser -\nrocking with\ngoogle web fonts");
+    text.anchor.set(0.5);
+    text.font = 'Press Start 2P';
+
+    grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+    grd.addColorStop(0, '#8ED6FF');
+    grd.addColorStop(1, '#004CB3');
+    text.fill = grd;
+
+    text.align = 'center';
+    text.stroke = '#000000';
+    text.strokeThickness = 2;
+    text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+
+
+    var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     spaceKey.onDown.addOnce(this.start, this);
   },
 
   start: function () {
-    game.state.start('play');
-    // game.state.add('Game', PhaserGame, true);
+    // game.state.start('play');
+    game.state.add('Game', PhaserGame, true);
   },
-
-
 
 
 
