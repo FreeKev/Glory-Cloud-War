@@ -72,7 +72,13 @@ PhaserGame.prototype = {
         rightButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         //audio
         music = game.add.audio('music');
-        music.play(); //background
+        // music.play(); //background
+        // music.loopFull()
+
+        music = game.add.audio('music');
+      	//	play: function (marker, position, volume, loop, forceRestart) {
+        // this.music.loop = true;
+      	music.play('', 0, 1, true);
         smash = game.add.audio('smash', 0.7, false)
     },
 
@@ -91,7 +97,18 @@ PhaserGame.prototype = {
         }
     },
 
+    // toggleAudio: function () {
+    //   if (music.isPlaying) {
+		//       music.pause();
+    //     } else {
+		//   music.resume();
+	  //   }
+    // },
+
     update: function () {
+        // if (!music.isPlaying){
+        //   music.resume();
+        // }
         //Platform interaction
         this.platforms.forEach(this.wrapPlatform, this);
         this.physics.arcade.collide(this.player, this.player2);
@@ -106,7 +123,7 @@ PhaserGame.prototype = {
           // this.player.revive();
           this.player.reset(game.world.randomX, this.player.y - 300);
           this.player.revive();
-          // $('#player2score').html('Player 2 Score: ' + playerhit);
+          $('#player2score').text('Player 2 Score: ' + playerhit);
         }
         if (this.player2.body.touching.up) {
           player2hit++;
@@ -116,7 +133,7 @@ PhaserGame.prototype = {
           // this.player.revive();
           this.player2.reset(game.world.randomX, this.player.y - 300);
           this.player2.revive();
-          // $('#playerscore').html('Player 1 Score: ' + playerhit);
+          $('#playerscore').text('Player 1 Score: ' + playerhit);
         }
 
         //  Do this AFTER the collide check, or we won't have blocked/touching set

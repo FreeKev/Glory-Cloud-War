@@ -3,6 +3,6 @@ body {
 }
 
 p {
-  font-family: 'Press Start 2P', cursive;
+  font: 'Press Start 2P', cursive;
   display: inline;
 }
