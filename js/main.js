@@ -4,22 +4,23 @@ var game = new Phaser.Game(700, 500, Phaser.CANVAS, 'game');
 var players = this.player || this.player2;
 var playerhit = 0;
 var player2hit = 0;
+// var p1games;
+// var p2games;
+if(localStorage.p1 == undefined){
+  localStorage.p1 = 0;
+}
+if(localStorage.p2 == undefined){
+  localStorage.p2 = 0;
+}
 game.state.add('menu', menuState);
 // game.state.add('play', playState);
-// game.state.add('win', winState);
+game.state.add('win', winState);
 
 WebFontConfig = {
-
-    //  'active' means all requested fonts have finished loading
-    //  We set a 1 second delay before calling 'createText'.
-    //  For some reason if we don't the browser cannot render the text the first time it's created.
-    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
-
-    //  The Google Fonts we want to load (specify as many as you like in the array)
+    //  Google Fonts
     google: {
       families: ['Press Start 2P']
     }
-
 };
 
 var PhaserGame = function () {
@@ -41,6 +42,7 @@ PhaserGame.prototype = {
     },
 
     preload: function () {
+        // this.load.image('background', 'assets/Mountains_PS.png');
         this.load.image('background', 'assets/Sophia.png');
         // this.load.image('main-menu', 'assets/Mountains_PS_lightened');
         this.load.image('platform', 'assets/cloud-platform.png');
@@ -60,10 +62,9 @@ PhaserGame.prototype = {
     create: function () {
         //Main Menu Call
         // this.state.start('menu');
-
         this.add.sprite(0, 0, 'background');
-        // background.x = 0;
-        // background.y = 0;
+        // this.game.background.x = 0;
+        // this.game.background.y = 0;
         // background.height = game.height;
         // background.width = game.width;
 
@@ -103,7 +104,6 @@ PhaserGame.prototype = {
         leftButton = game.input.keyboard.addKey(Phaser.Keyboard.A);
         rightButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         //audio
-        music = game.add.audio('music');
         // music.play(); //background
         // music.loopFull()
 
@@ -134,7 +134,14 @@ PhaserGame.prototype = {
         //   music.resume();
         // }
         //PAUSE FUNCTION
-
+        //Win FUNCTION
+        $('#player2score').text('Player 2 Score: ' + playerhit);
+        $('#playerscore').text('Player 1 Score: ' + player2hit);
+        $('#p2won').text('Games Won: ' + localStorage.p2);
+        $('#p1won').text('Games Won: ' + localStorage.p1);
+        var Win = function () {
+          game.state.start('win');
+        };
         //Platform interaction
         this.platforms.forEach(this.wrapPlatform, this);
         this.physics.arcade.collide(this.player, this.player2);
@@ -148,7 +155,7 @@ PhaserGame.prototype = {
           this.player.kill();
           this.player.reset(game.world.randomX, this.player.y - 300);
           this.player.revive();
-          $('#player2score').text('Player 2 Score: ' + playerhit);
+          // $('#player2score').text('Player 2 Score: ' + playerhit);
         }
         if (this.player2.body.touching.up) {
           player2hit++;
@@ -156,7 +163,10 @@ PhaserGame.prototype = {
           this.player2.kill();
           this.player2.reset(game.world.randomX, this.player2.y - 300);
           this.player2.revive();
-          $('#playerscore').text('Player 1 Score: ' + playerhit);
+          // $('#playerscore').text('Player 1 Score: ' + player2hit);
+        }
+        if (player2hit === 15 || playerhit === 15){
+          Win();
         }
 
         //  Do this AFTER the collide check, or we won't have blocked/touching set
@@ -235,20 +245,7 @@ PhaserGame.prototype = {
 game.state.start('menu');
 // game.state.add('Game', PhaserGame, true);
 
-//PAUSE function - NOT WORKING
-// $(function () {
-//   $('#pausebutton').text('Play!').data('paused', true).keyup(function (e) {
-//     if(e.keyCode == 8){
-//       $('#pausebutton').data("paused");
-//       game.paused = true;
-//     } else {
-//       $(this).data('paused');
-//       $(this).text('Pause Game with Spacebar');
-//       game.paused = false;
-//     }
-//   })
-// })
-// PAUSE FUNCTION - WORKING
+// PAUSE FUNCTION
 // $(function () {
 //     $("#pauseButton").text("Pause").data("paused", false).click(function () {
 //         $(this).data("paused", !$(this).data("paused"));

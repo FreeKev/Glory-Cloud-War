@@ -5,7 +5,7 @@ body {
 
 p {
   font: 'Press Start 2P', cursive;
-  display: inline;
+  display: inline-block;
 }
 
 #pauseButton {

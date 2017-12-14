@@ -3,22 +3,26 @@ console.log("in menu.js");
 
 var menuState = {
   create: function () {
-    console.log("in the create function");
 
     // var text = game.add.text(game.world.centerX, game.world.centerY, "click and drag me", { font: "65px Arial", fill: "#ff0044", align: "center" });
-    var text = game.add.text(game.world.centerX, game.world.centerY, "- phaser -\nrocking with\ngoogle web fonts");
-    text.anchor.set(0.5);
-    text.font = 'Press Start 2P';
+    var mtext = game.add.text(game.world.centerX, game.world.centerY, "- GLORY CLOUD WAR -\nWatch your head\nSquash your enemy");
+    mtext.anchor.set(0.5);
+    mtext.font = 'Press Start 2P';
 
-    grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+    grd = mtext.context.createLinearGradient(0, 0, 0, mtext.canvas.height);
     grd.addColorStop(0, '#8ED6FF');
     grd.addColorStop(1, '#004CB3');
-    text.fill = grd;
+    mtext.fill = grd;
 
-    text.align = 'center';
-    text.stroke = '#000000';
-    text.strokeThickness = 2;
-    text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    mtext.align = 'center';
+    mtext.stroke = '#000000';
+    mtext.strokeThickness = 2;
+    mtext.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+
+    var texty = game.add.text(game.world.centerX, game.world.centerY + 150, "P1 = Arrows\nP2 = W-A-S-D\nSpacebar Starts Game\n15 Kills Wins");
+    texty.anchor.set(0.5);
+    texty.font = 'Press Start 2P';
+    texty.fill = "#ffffff";
 
 
     var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -36,41 +40,6 @@ var menuState = {
 //ENDING BRACKET
 };
 
-
-
-// TITLE BUTTON
-// game.menu = function(game) {
-//
-// };
-//
-// game.menu.prototype = {
-//     create: function(game){
-//       this.createButton(game, "Play", game.world.centerX,game.world.centerY + 32, 300, 100, function() {
-//         this.state.start('Level1');
-//       })
-//
-//       titlescreen = game.add.sprite(game.world.centerX,game.world.centerY - 192, 'title');
-//       titlescreen.anchor.setTo(0.5, 0.5);
-//     },
-//
-//     update: function(game){
-//
-//     }
-//
-//     createButton: function(game, string, x,y,w,h, callback){
-//
-//       var buttonS = game.add.button(x,y, 'button', callback, this, 2,1,0);
-//
-//       buttoS.anchor.setTo(0.5, 0.5);
-//       buttonS.width = w;
-//       buttonS.height = h;
-//
-//       var txt = game.add.text(buttonS.x, buttonS.y, string);
-//
-//       txt.anchor.setTo(0.5, 0.5);
-//     }
-//
-// };
 
 // MUSIC
 // toggleAudio: function () {
