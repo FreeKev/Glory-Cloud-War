@@ -1,7 +1,10 @@
-console.log("in win.js");
-
 var winState = {
+  preload: function () {
+    this.load.image('title', 'assets/nite-title2.png');
+  },
+
   create: function () {
+    this.add.sprite(0, 0, 'title');
 
     if (player2hit === 15) {
       var wtext = game.add.text(game.world.centerX, game.world.centerY, "PLAYER 1\nWINS\nTHE CLOUD WAR");
@@ -19,9 +22,7 @@ var winState = {
       wtext.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
       player2hit = 0;
       playerhit = 0;
-      // p1games++;
       localStorage.p1++;
-      // $('#p1won').text('Games Won: ' + localStorage.p1);
     } else if (playerhit === 15) {
       var wtext = game.add.text(game.world.centerX, game.world.centerY, "PLAYER 2\nWINS\nTHE CLOUD WAR");
       wtext.anchor.set(0.5);
@@ -38,9 +39,7 @@ var winState = {
       wtext.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
       player2hit = 0;
       playerhit = 0;
-      // p2games++;
       localStorage.p2++;
-      // $('#p2won').text('Games Won: ' + localStorage.p2);
     } else {
       console.log("error.");
     }

@@ -1,6 +1,8 @@
 body {
   font-family: 'Press Start 2P', cursive;
   align-items: center;
+  text-align: center;
+  background-image: url(../assets/Mountains_PS_lightened.png);
 }
 
 p {
@@ -10,4 +12,9 @@ p {
 
 #pauseButton {
   display: none;
+}
+
+canvas {
+  display : block;
+  margin : auto;
 }

@@ -2,8 +2,12 @@ console.log("in menu.js");
 
 
 var menuState = {
-  create: function () {
+  preload: function () {
+    this.load.image('cloudz', 'assets/layers/cloud_lonely2.png');
+  },
 
+  create: function () {
+    this.add.sprite(0, 0, 'cloudz');
     // var text = game.add.text(game.world.centerX, game.world.centerY, "click and drag me", { font: "65px Arial", fill: "#ff0044", align: "center" });
     var mtext = game.add.text(game.world.centerX, game.world.centerY, "- GLORY CLOUD WAR -\nWatch your head\nSquash your enemy");
     mtext.anchor.set(0.5);
@@ -30,7 +34,6 @@ var menuState = {
   },
 
   start: function () {
-    // game.state.start('play');
     game.state.add('Game', PhaserGame, true);
   },
 

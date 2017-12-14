@@ -4,8 +4,6 @@ var game = new Phaser.Game(700, 500, Phaser.CANVAS, 'game');
 var players = this.player || this.player2;
 var playerhit = 0;
 var player2hit = 0;
-// var p1games;
-// var p2games;
 if(localStorage.p1 == undefined){
   localStorage.p1 = 0;
 }
@@ -13,11 +11,9 @@ if(localStorage.p2 == undefined){
   localStorage.p2 = 0;
 }
 game.state.add('menu', menuState);
-// game.state.add('play', playState);
 game.state.add('win', winState);
 
 WebFontConfig = {
-    //  Google Fonts
     google: {
       families: ['Press Start 2P']
     }
@@ -43,11 +39,12 @@ PhaserGame.prototype = {
 
     preload: function () {
         // this.load.image('background', 'assets/Mountains_PS.png');
-        this.load.image('background', 'assets/Sophia.png');
-        // this.load.image('main-menu', 'assets/Mountains_PS_lightened');
+        // this.load.image('background', 'assets/Church-cloud.jpg');
+        // this.load.image('background', 'assets/layers/sky2.png');
+        this.load.image('mountback', 'assets/layers/mountains.png');
+        this.load.image('mount', 'assets/layers/mountains2.png');
         this.load.image('platform', 'assets/cloud-platform.png');
         this.load.image('ice-platform', 'assets/ice-platform.png');
-        this.load.image('title', 'assets/nite-title.png');
         //CHARS
         this.load.spritesheet('dude', 'assets/nitesheet2.png', 100, 83);
         this.load.spritesheet('dude2', 'assets/nitesheetBLU.png', 100, 83);
@@ -55,18 +52,32 @@ PhaserGame.prototype = {
         this.load.audio('music', '../assets/dark-shrine.mp3');
         this.load.audio('smash', '../assets/churchbell.mp3');
         //FONT
-        game.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
         game.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
     },
 
     create: function () {
-        //Main Menu Call
-        // this.state.start('menu');
-        this.add.sprite(0, 0, 'background');
-        // this.game.background.x = 0;
-        // this.game.background.y = 0;
-        // background.height = game.height;
-        // background.width = game.width;
+        //APPEARANCES
+        this.add.sprite(0, 0, 'mount');
+        this.MountainBacking = this.game.add.tileSprite(0,
+          this.game.height - this.game.cache.getImage('mountback').height,
+          this.game.width,
+          this.game.cache.getImage('mountback').height,
+          'mountback'
+        );
+
+        var mtext = game.add.text(game.world.centerX, game.world.centerY -180, $('#playerscore'));
+        mtext.anchor.set(0.5);
+        mtext.font = 'Press Start 2P';
+        grd = mtext.context.createLinearGradient(0, 0, 0, mtext.canvas.height);
+        grd.addColorStop(0, '#8ED6FF');
+        grd.addColorStop(1, '#004CB3');
+        mtext.fill = grd;
+        mtext.align = 'center';
+        mtext.stroke = '#000000';
+        mtext.strokeThickness = 2;
+        mtext.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+
+
 
         this.platforms = this.add.physicsGroup();
         this.platforms.create(0, 64, 'ice-platform');
@@ -133,6 +144,9 @@ PhaserGame.prototype = {
         // if (!music.isPlaying){
         //   music.resume();
         // }
+        //IMAGE SCROLL
+        this.MountainBacking.tilePosition.x -= 0.15;
+
         //PAUSE FUNCTION
         //Win FUNCTION
         $('#player2score').text('Player 2 Score: ' + playerhit);
