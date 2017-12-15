@@ -1,3 +1,6 @@
+// var winner = 15;
+// var play1 = "PLAYER 1\nWINS\nTHE CLOUD WAR";
+// var play2 = "PLAYER 2\nWINS\nTHE CLOUD WAR";
 var winState = {
   preload: function () {
     this.load.image('title', 'assets/nite-title2.png');

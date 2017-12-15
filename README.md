@@ -25,16 +25,13 @@ An online crusader fight-to-the-death for two players.
 Screenshots for each game-state, or loading state
 
 ### Menu Screen
-![Image of Menu]
-(https://octodex.github.com/images/yaktocat.png)
+![Image of Menu](https://freekev.github.io/Cloud/assets/SSMenu.png)
 
 ### Gameplay
-![Image of Gameplay]
-(https://octodex.github.com/images/yaktocat.png)
+![Image of Gameplay](https://freekev.github.io/Cloud/assets/SSPlay.png)
 
 ### Win Screen and Reload
-![Image of Win Screen]
-(https://octodex.github.com/images/yaktocat.png)
+![Image of Win Screen](https://freekev.github.io/Cloud/assets/SSWin.png)
 
 ## Issues
 * Loading screen and win screens were difficult because I didn't hard-refresh browser
