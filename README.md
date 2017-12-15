@@ -8,18 +8,33 @@ An online crusader fight-to-the-death for two players.
 * JQuery
 * Phaser
 
-##Approach Taken
-1. Researched platformer games and created basic layout screen
-2. Added platforms and characters
-3. Animated characters
-4. Created kill-function for characters
+## Approach Taken
+* Researched platformer games and created basic layout screen
+* Added platforms and characters
+* Animated characters
+* Created kill-function for characters
   - Ability to jump-on enemy, but not die by hitting platforms
   - Added score-keeping
-5. Loaded music and backgrounds
-6. Created loading menu
-7. Created win-function screen
+* Loaded music and backgrounds
+* Created loading menu
+* Created win-function screen
   - Added restart and reset-score functions.
-8. Made everything beautiful.
+* Made everything beautiful.
+
+## Loading States
+Screenshots for each game-state, or loading state
+
+### Menu Screen
+![Image of Menu]
+(https://octodex.github.com/images/yaktocat.png)
+
+### Gameplay
+![Image of Gameplay]
+(https://octodex.github.com/images/yaktocat.png)
+
+### Win Screen and Reload
+![Image of Win Screen]
+(https://octodex.github.com/images/yaktocat.png)
 
 ## Issues
 * Loading screen and win screens were difficult because I didn't hard-refresh browser
