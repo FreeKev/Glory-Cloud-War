@@ -1,7 +1,7 @@
-#Glory Cloud War
+# Glory Cloud War
 An online crusader fight-to-the-death for two players.
 
-##Technologies Used
+## Technologies Used
 * HTML
 * CSS
 * Javascript
@@ -21,16 +21,16 @@ An online crusader fight-to-the-death for two players.
   - Added restart and reset-score functions.
 8. Made everything beautiful.
 
-##Issues
+## Issues
 * Loading screen and win screens were difficult because I didn't hard-refresh browser
 * Score display on main window made difficult because of Phaser text issues
 
-##More?
+## More?
 * Could create multiple levels (Differing platforms, etc.)
 * Characters have a screen-wrap-around and aren't blocked by all world-bounds
 * Body physics changed so that a character falls faster than he jumps
 
-##Resources
+## Resources
 * Font - https://fonts.google.com/specimen/Press+Start+2P
 * Sprite - https://devilsgarage.itch.io/citadel-crashers-sprites-non-commercial-only
 * Backgrounds - https://vnitti.itch.io/glacial-mountains-parallax-background
