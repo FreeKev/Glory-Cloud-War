@@ -1,6 +1,3 @@
-console.log("in menu.js");
-
-
 var menuState = {
   preload: function () {
     this.load.image('cloudz', 'assets/layers/cloud_lonely2.png');
@@ -38,17 +35,5 @@ var menuState = {
   },
 
 
-
-
 //ENDING BRACKET
 };
-
-
-// MUSIC
-// toggleAudio: function () {
-//   if (music.isPlaying) {
-//       music.pause();
-//     } else {
-//   music.resume();
-//   }
-// },

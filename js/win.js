@@ -44,7 +44,7 @@ var winState = {
       console.log("error.");
     }
 
-    var infoT = game.add.text(game.world.centerX, game.world.centerY + 150, "Press ENTER to Restart");
+    var infoT = game.add.text(game.world.centerX, game.world.centerY + 150, "Press ENTER to Restart\n'y' to reset game wins");
     infoT.anchor.set(0.5);
     infoT.font = 'Press Start 2P';
     infoT.fill = "#ffffff";
@@ -53,10 +53,20 @@ var winState = {
 
     var resetReturn = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     resetReturn.onDown.addOnce(this.restart, this);
+
+    var resetGames = game.input.keyboard.addKey(Phaser.Keyboard.Y);
+    resetGames.onDown.addOnce(this.gameend, this);
+
   },
 
   restart: function() {
     game.state.start('menu');
-  }
+  },
+
+  gameend: function() {
+    localStorage.p2 = 0;
+    localStorage.p1 = 0;
+  },
+
 
 };
