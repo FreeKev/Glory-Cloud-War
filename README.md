@@ -34,8 +34,9 @@ Screenshots for each game-state, or loading state
 ![Image of Win Screen](https://freekev.github.io/Cloud/assets/SSWin.png)
 
 ## Issues
-* Loading screen and win screens were difficult because I didn't hard-refresh browser
-* Score display on main window made difficult because of Phaser text issues
+* Hard-refreshing the browser was needed a few times, and I spent a while finding that out
+* Score display in main window made difficult because of Phaser function issues
+  - Kill & destroy functions wouldn't remove text from window (as here: http://www.html5gamedevs.com/topic/19692-problem-with-destroy/)
 
 ## More?
 * Could create multiple levels (Differing platforms, etc.)

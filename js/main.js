@@ -3,6 +3,7 @@ var players = this.player || this.player2;
 var playerhit = 0;
 var player2hit = 0;
 var mtext;
+var wincount = 15;
 if(localStorage.p1 == undefined){
   localStorage.p1 = 0;
 }
@@ -17,6 +18,13 @@ WebFontConfig = {
       families: ['Press Start 2P']
     }
 };
+
+var scoreUpdate = function () {
+    $('#player2score').text('Player 2 Score: ' + playerhit);
+    $('#playerscore').text('Player 1 Score: ' + player2hit);
+    $('#p2won').text('Games Won: ' + localStorage.p2);
+    $('#p1won').text('Games Won: ' + localStorage.p1);
+  };
 
 var PhaserGame = function () {
     this.player = null;
@@ -105,7 +113,7 @@ PhaserGame.prototype = {
         this.player2.animations.add('left', [0, 1, 2, 3], 10, true);
         this.player2.animations.add('turn', [4], 20, true);
         this.player2.animations.add('right', [5, 6, 7, 8], 10, true);
-
+        // P2 Keys
         this.cursors = this.input.keyboard.createCursorKeys();
         upButton = game.input.keyboard.addKey(Phaser.Keyboard.W);
         downButton = game.input.keyboard.addKey(Phaser.Keyboard.S);
@@ -137,19 +145,12 @@ PhaserGame.prototype = {
     },
 
     update: function () {
-        // if (!music.isPlaying){
-        //   music.resume();
-        // }
         //IMAGE SCROLL
         this.MountainBacking.tilePosition.x -= 0.15;
-
         //SCORE KEEPING
 
         //Win FUNCTION
-        $('#player2score').text('Player 2 Score: ' + playerhit);
-        $('#playerscore').text('Player 1 Score: ' + player2hit);
-        $('#p2won').text('Games Won: ' + localStorage.p2);
-        $('#p1won').text('Games Won: ' + localStorage.p1);
+        scoreUpdate();
         var Win = function () {
           game.state.start('win');
         };
@@ -159,7 +160,7 @@ PhaserGame.prototype = {
         this.physics.arcade.collide(this.player2, this.player);
         this.physics.arcade.collide(this.player, this.platforms, this.setFriction, null, this);
         this.physics.arcade.collide(this.player2, this.platforms, this.setFriction, null, this);
-        // this.platforms.collideDown == false;
+        // Player/player collision
         if (this.player.body.touching.up && this.player2.body.touching.down) {
           playerhit++;
           smash.play();
@@ -176,11 +177,11 @@ PhaserGame.prototype = {
           this.player2.revive();
           // $('#playerscore').text('Player 1 Score: ' + player2hit);
         }
-        if (player2hit === 15 || playerhit === 15){
+        if (player2hit === wincount || playerhit === wincount){
           Win();
         }
 
-        //  Do this AFTER the collide check, or we won't have blocked/touching set
+        // Body physics - Player 1
         var standing = this.player.body.blocked.down || this.player.body.touching.down;
 
         this.player.body.velocity.x = 0;
@@ -213,39 +214,39 @@ PhaserGame.prototype = {
             this.player.body.velocity.y = -500;
             this.jumpTimer1 = this.time.time + 750;
         }
-    //Player 2 controlled
-    var standing2 = this.player2.body.blocked.down || this.player2.body.touching.down;
+        //Player 2
+        var standing2 = this.player2.body.blocked.down || this.player2.body.touching.down;
 
-    this.player2.body.velocity.x = 0;
+        this.player2.body.velocity.x = 0;
 
-    if (leftButton.isDown){
-        this.player2.body.velocity.x = -300;
+        if (leftButton.isDown){
+            this.player2.body.velocity.x = -300;
 
-        if (this.facing2 !== 'left'){
-            this.player2.play('left');
-            this.facing2 = 'left';
+            if (this.facing2 !== 'left'){
+                this.player2.play('left');
+                this.facing2 = 'left';
+            }
+        } else if (rightButton.isDown) {
+            this.player2.body.velocity.x = 300;
+
+            if (this.facing2 !== 'right'){
+                this.player2.play('right');
+                this.facing2 = 'right';
+            }
+        } else {
+            if (this.facing2 !== 'idle'){
+                this.player2.animations.stop();
+                if (this.facing2 === 'left'){
+                    this.player2.frame = 0;
+                } else {
+                    this.player2.frame = 5;}
+                this.facing2 = 'idle';
+            }
         }
-    } else if (rightButton.isDown) {
-        this.player2.body.velocity.x = 300;
-
-        if (this.facing2 !== 'right'){
-            this.player2.play('right');
-            this.facing2 = 'right';
+        if (standing2 && upButton.isDown && this.time.time > this.jumpTimer2){
+            this.player2.body.velocity.y = -500;
+            this.jumpTimer2 = this.time.time + 750;
         }
-    } else {
-        if (this.facing2 !== 'idle'){
-            this.player2.animations.stop();
-            if (this.facing2 === 'left'){
-                this.player2.frame = 0;
-            } else {
-                this.player2.frame = 5;}
-            this.facing2 = 'idle';
-        }
-    }
-    if (standing2 && upButton.isDown && this.time.time > this.jumpTimer2){
-        this.player2.body.velocity.y = -500;
-        this.jumpTimer2 = this.time.time + 750;
-    }
 }
 
 
