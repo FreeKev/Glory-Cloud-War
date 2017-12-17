@@ -35,7 +35,7 @@ var winState = {
     player2hit = 0;
     playerhit = 0;
 
-    var infoT = game.add.text(game.world.centerX, game.world.centerY + 150, "Press ENTER to Restart\n'y' to reset game wins");
+    var infoT = game.add.text(game.world.centerX, game.world.centerY + 150, "Press ENTER to Restart\n'y' to reset Games Won");
     infoT.anchor.set(0.5);
     infoT.font = 'Press Start 2P';
     infoT.fill = "#ffffff";

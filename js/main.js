@@ -1,5 +1,5 @@
 var game = new Phaser.Game(700, 500, Phaser.CANVAS, 'game');
-var players = this.player || this.player2;
+// var players = this.player || this.player2;
 var playerhit = 0;
 var player2hit = 0;
 var mtext;
@@ -119,10 +119,7 @@ PhaserGame.prototype = {
         downButton = game.input.keyboard.addKey(Phaser.Keyboard.S);
         leftButton = game.input.keyboard.addKey(Phaser.Keyboard.A);
         rightButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
-        //audio
-        // music.play(); //background
-        // music.loopFull()
-
+        //AUDIO - Loop doesn't play on Chrome.
         music = game.add.audio('music');
       	//	play: function (marker, position, volume, loop, forceRestart) {
         // this.music.loop = true;
@@ -147,7 +144,6 @@ PhaserGame.prototype = {
     update: function () {
         //IMAGE SCROLL
         this.MountainBacking.tilePosition.x -= 0.15;
-        //SCORE KEEPING
 
         //Win FUNCTION
         scoreUpdate();
@@ -162,11 +158,11 @@ PhaserGame.prototype = {
         this.physics.arcade.collide(this.player2, this.platforms, this.setFriction, null, this);
         // Player/player collision
         if (this.player.body.touching.up && this.player2.body.touching.down) {
-          playerhit++;
-          smash.play();
-          this.player.kill();
-          this.player.reset(game.world.randomX, this.player.y - 300);
-          this.player.revive();
+            playerhit++;
+            smash.play();
+            this.player.kill();
+            this.player.reset(game.world.randomX, this.player.y - 300);
+            this.player.revive();
           // $('#player2score').text('Player 2 Score: ' + playerhit);
         }
         if (this.player2.body.touching.up && this.player.body.touching.down) {
@@ -188,14 +184,12 @@ PhaserGame.prototype = {
 
         if (this.cursors.left.isDown){
             this.player.body.velocity.x = -300;
-
             if (this.facing !== 'left'){
                 this.player.play('left');
                 this.facing = 'left';
             }
         } else if (this.cursors.right.isDown) {
             this.player.body.velocity.x = 300;
-
             if (this.facing !== 'right'){
                 this.player.play('right');
                 this.facing = 'right';
@@ -221,14 +215,12 @@ PhaserGame.prototype = {
 
         if (leftButton.isDown){
             this.player2.body.velocity.x = -300;
-
             if (this.facing2 !== 'left'){
                 this.player2.play('left');
                 this.facing2 = 'left';
             }
         } else if (rightButton.isDown) {
             this.player2.body.velocity.x = 300;
-
             if (this.facing2 !== 'right'){
                 this.player2.play('right');
                 this.facing2 = 'right';
