@@ -42,6 +42,8 @@ Screenshots for each game-state, or loading state
 * Could create multiple levels (Differing platforms, etc.)
 * Characters have a screen-wrap-around and aren't blocked by all world-bounds
 * Body physics changed so that a character falls faster than he jumps
+* Add Computer Opponent
+  - Homing tech - https://gamemechanicexplorer.com/#homingmissiles-5
 
 ## Resources
 * Font - https://fonts.google.com/specimen/Press+Start+2P
